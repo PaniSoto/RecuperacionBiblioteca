@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreForHireRequest;
-use App\Mail\ForHireDeleted;
+use App\Mail\ForhireCreatedMail;
+use App\Mail\ForHireDeletedMail;
+use App\Mail\ForhireEditedMail;
 use App\Mail\PostCreatedMail;
 use App\Models\Book;
 use App\Models\ForHire;
@@ -15,7 +17,6 @@ use Illuminate\Support\Facades\Mail;
 
 class ForHireController extends Controller
 {
-
     public function create()
     {
         $books = Book::all();
@@ -30,15 +31,16 @@ class ForHireController extends Controller
 
         ForHire::create($request->all());
 
+        Mail::to('prueba@prueba.com')->send(new ForhireCreatedMail($request));
+
         return redirect()->route('dashboard');
     }
 
     public function destroy(ForHire $forHire)
     {
-        // $post = Post::find($post);
         $forHire->delete();
 
-        Mail::to('prueba@prueba.com')->send(new ForHireDeleted($forHire));
+        Mail::to('prueba@prueba.com')->send(new ForHireDeletedMail($forHire));
 
         return redirect('dashboard');
     }
@@ -54,6 +56,8 @@ class ForHireController extends Controller
     public function update(StoreForHireRequest $request, ForHire $forHire)
     {
         $forHire->update($request->all());
+
+        Mail::to('prueba@prueba.com')->send(new ForhireEditedMail($forHire));
 
         return redirect()->route('dashboard');
     }

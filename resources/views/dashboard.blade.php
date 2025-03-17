@@ -6,5 +6,7 @@
     </x-slot>
 
     <livewire:for-hire-table-component />
+
+    <livewire:reader-table-component />
     
 </x-app-layout>

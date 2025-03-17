@@ -4,6 +4,7 @@
     </div>
 
     <div class="table-responsive">
+        <h2 class="text-left mb-4 underline">Listado de préstamos</h2>
         <table class="table table-hover table-bordered">
             <thead class="table-dark">
                 <tr>

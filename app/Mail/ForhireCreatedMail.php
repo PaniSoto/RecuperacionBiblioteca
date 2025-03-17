@@ -2,15 +2,15 @@
 
 namespace App\Mail;
 
-use Illuminate\Mail\Mailables\Address;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ForHireDeleted extends Mailable
+class ForhireCreatedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -18,6 +18,7 @@ class ForHireDeleted extends Mailable
      * Create a new message instance.
      */
     public $forHire;
+    public $book;
     public function __construct($forHire)
     {
         $this->forHire = $forHire;
@@ -30,7 +31,7 @@ class ForHireDeleted extends Mailable
     {
         return new Envelope(
             from: new Address('admin@iesincagarcilaso.com', 'Administrador'),
-            subject: 'Préstamo eliminado',
+            subject: 'Préstamo Creado',
         );
     }
 
@@ -40,7 +41,7 @@ class ForHireDeleted extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.forHireDeleted',
+            markdown: 'emails.forhire-created',
         );
     }
 
@@ -52,17 +53,5 @@ class ForHireDeleted extends Mailable
     public function attachments(): array
     {
         return [];
-    }
-
-     /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
-    {
-        return $this->view('emails.forHireDeleted')
-                    ->subject('Préstamo Eliminado')
-                    ->with(['forHire' => $this->forHire]);
     }
 }
