@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\StoreForHireRequest;
+use App\Mail\ForHireDeleted;
+use App\Mail\PostCreatedMail;
 use App\Models\Book;
 use App\Models\ForHire;
 use App\Models\Librarian;
 use App\Models\Reader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ForHireController extends Controller
 {
@@ -21,13 +24,11 @@ class ForHireController extends Controller
         return view('forHires.create')->with(compact('books', 'readers', 'librarians'));
     }
 
-    public function store(StorePostRequest $request)
+    public function store(StoreForHireRequest $request)
     {
         $request->merge(['user_id' => Auth::user()->id]);
 
-
         ForHire::create($request->all());
-
 
         return redirect()->route('dashboard');
     }
@@ -36,6 +37,8 @@ class ForHireController extends Controller
     {
         // $post = Post::find($post);
         $forHire->delete();
+
+        Mail::to('prueba@prueba.com')->send(new ForHireDeleted($forHire));
 
         return redirect('dashboard');
     }
@@ -48,7 +51,7 @@ class ForHireController extends Controller
         return view('forHires.edit')->with(compact('forHire', 'books', 'readers', 'librarians'));
     }
 
-    public function update(StorePostRequest $request, ForHire $forHire)
+    public function update(StoreForHireRequest $request, ForHire $forHire)
     {
         $forHire->update($request->all());
 
