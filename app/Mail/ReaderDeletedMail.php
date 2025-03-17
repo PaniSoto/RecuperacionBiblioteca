@@ -10,17 +10,17 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ForhireCreatedMail extends Mailable
+class ReaderDeletedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public $forHire;
-    public function __construct($forHire)
+    public $reader;
+    public function __construct($reader)
     {
-        $this->forHire = $forHire;
+        $this->reader = $reader;
     }
 
     /**
@@ -30,7 +30,7 @@ class ForhireCreatedMail extends Mailable
     {
         return new Envelope(
             from: new Address('admin@iesincagarcilaso.com', 'Administrador'),
-            subject: 'Préstamo Creado',
+            subject: 'Préstamo eliminado',
         );
     }
 
@@ -40,7 +40,7 @@ class ForhireCreatedMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.forhire-created',
+            markdown: 'emails.reader-deleted',
         );
     }
 

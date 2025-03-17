@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReaderRequest;
+use App\Mail\ReaderCreatedMail;
+use App\Mail\ReaderDeletedMail;
+use App\Mail\ReaderEditedMail;
 use App\Models\Reader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ReaderController extends Controller
 {
@@ -20,6 +24,8 @@ class ReaderController extends Controller
 
         Reader::create($request->all());
 
+        Mail::to('prueba@prueba.com')->send(new ReaderCreatedMail($request));
+
         return redirect()->route('dashboard');
     }
 
@@ -27,7 +33,7 @@ class ReaderController extends Controller
     {
         $reader->delete();
 
-        // Mail::to('prueba@prueba.com')->send(new ForHireDeletedMail($reader));
+        Mail::to('prueba@prueba.com')->send(new ReaderDeletedMail($reader));
 
         return redirect('dashboard');
     }
@@ -40,6 +46,8 @@ class ReaderController extends Controller
     public function update(StoreReaderRequest $request, Reader $reader)
     {
         $reader->update($request->all());
+
+        Mail::to('prueba@prueba.com')->send(new ReaderEditedMail($reader));
 
         return redirect()->route('dashboard');
     }
