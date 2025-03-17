@@ -30,7 +30,7 @@ class ReaderDeletedMail extends Mailable
     {
         return new Envelope(
             from: new Address('admin@iesincagarcilaso.com', 'Administrador'),
-            subject: 'Préstamo eliminado',
+            subject: 'Lector eliminado',
         );
     }
 

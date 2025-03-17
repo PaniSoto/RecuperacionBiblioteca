@@ -8,5 +8,7 @@
     <livewire:for-hire-table-component />
 
     <livewire:reader-table-component />
+
+    <livewire:book-table-component />
     
 </x-app-layout>

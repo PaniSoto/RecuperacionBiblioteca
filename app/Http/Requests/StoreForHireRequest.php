@@ -22,8 +22,8 @@ class StoreForHireRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'forHire_date' => 'required',
-            'return_date' => 'required',
+            'forHire_date' => 'required | date',
+            'return_date' => 'required | date',
             'status' => 'required',
             'book_id' => 'required',
             'librarian_id' => 'required',

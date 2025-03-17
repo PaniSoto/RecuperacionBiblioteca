@@ -30,7 +30,7 @@ class ReaderCreatedMail extends Mailable
     {
         return new Envelope(
             from: new Address('admin@iesincagarcilaso.com', 'Administrador'),
-            subject: 'Préstamo Creado',
+            subject: 'Lector Creado',
         );
     }
 

@@ -19,7 +19,7 @@ class ReaderFactory extends Factory
         return [
             'name' => fake()->name(),
             'address' => fake()->address(),
-            'phone' => fake()->phoneNumber(),
+            'phone' => fake()->numberBetween(1000000000, 9999999999),
             'email' => fake()->email(),
         ];
     }
